@@ -1,25 +1,21 @@
 class Solution {
     public long countAlternatingSubarrays(int[] nums) {
-        int n = nums.length;
-        long total = 0;
-        int i = 0;
-
-        while (i < n) {
-            int count = 1;
-            int j = i + 1;
-
-            while (j < n && nums[j] != nums[j - 1]) {
-                count++;
-                j++;
+         int n = nums.length;
+         long total = 0;
+         int x = 0;
+         while(x<n){
+           int count = 1;
+           int i = x + 1;
+            for(;i<n;i++){
+                if(nums[i-1]!=nums[i]){
+                    count++;
+                }else{
+                    break;
+                }
             }
-
-            
-            total += (long) count * (count + 1) / 2;
-
-           
-            i = j;
-        }
-
-        return total;
+            total += (long)count*(count+1)/2;
+            x = i;
+    }
+    return total;
     }
 }
