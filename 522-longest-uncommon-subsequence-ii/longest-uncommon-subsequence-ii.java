@@ -3,9 +3,11 @@ class Solution {
         int n = strs.length;
         int ans_max = -1;
         Arrays.sort(strs,(a,b) -> a.length() - b.length());
+        Set<String> set = new HashSet<>();
 
         for(int i = 0;i<n;i++){
             int j;
+            if(set.contains(strs[i])) continue;
             for(j = 0;j<n;j++){
                 if(i!=j){
                     if(issub(strs[j],strs[i])){
@@ -16,6 +18,7 @@ class Solution {
             if(j==n){
                 ans_max = Math.max(ans_max, strs[i].length());
             }
+            set.add(strs[i]);
         }
         return ans_max;
     }
