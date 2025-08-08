@@ -1,37 +1,33 @@
 class Solution {
     public int findLUSlength(String[] strs) {
-        int n = strs.length;
-        int ans_max = -1;
-        Arrays.sort(strs,(a,b) -> a.length() - b.length());
-        Set<String> set = new HashSet<>();
-
-        for(int i = 0;i<n;i++){
-            int j;
-            if(set.contains(strs[i])) continue;
-            for(j = 0;j<n;j++){
-                if(i!=j){
-                    if(issub(strs[j],strs[i])){
-                        break;
-                    }
+        Arrays.sort(strs, (a, b) -> b.length() - a.length()); // Sort by length descending
+        
+        for (int i = 0; i < strs.length; i++) {
+            boolean isUncommon = true;
+            
+            for (int j = 0; j < strs.length; j++) {
+                if (i != j && isSubsequence(strs[i], strs[j])) {
+                    isUncommon = false;
+                    break;
                 }
             }
-            if(j==n){
-                ans_max = Math.max(ans_max, strs[i].length());
+
+            if (isUncommon) {
+                return strs[i].length(); // First longest uncommon string
             }
-            set.add(strs[i]);
         }
-        return ans_max;
+
+        return -1;
     }
 
-    public boolean issub(String s1, String s2){
-        int l = 0 , r = 0;
-        while(l<s1.length() && r<s2.length()){
-            if(s1.charAt(l)==s2.charAt(r)){
-                l++;r++;
-            }else{
-                l++;
+    private static boolean isSubsequence(String a, String b) {
+        int i = 0, j = 0;
+        while (i < a.length() && j < b.length()) {
+            if (a.charAt(i) == b.charAt(j)) {
+                i++;
             }
+            j++;
         }
-        return r == s2.length();
+        return i == a.length();
     }
 }
