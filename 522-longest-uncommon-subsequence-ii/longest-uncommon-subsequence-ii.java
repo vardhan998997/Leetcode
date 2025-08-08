@@ -1,33 +1,34 @@
 class Solution {
     public int findLUSlength(String[] strs) {
-        Arrays.sort(strs, (a, b) -> b.length() - a.length()); // Sort by length descending
-        
-        for (int i = 0; i < strs.length; i++) {
-            boolean isUncommon = true;
-            
-            for (int j = 0; j < strs.length; j++) {
-                if (i != j && isSubsequence(strs[i], strs[j])) {
-                    isUncommon = false;
-                    break;
+        int n = strs.length;
+        int ans_max = -1;
+        Arrays.sort(strs,(a,b) -> b.length() - a.length());
+
+        for(int i = 0;i<n;i++){
+            int j;
+            for(j = 0;j<n;j++){
+                if(i!=j){
+                    if(issub(strs[j],strs[i])){
+                        break;
+                    }
                 }
             }
-
-            if (isUncommon) {
-                return strs[i].length(); // First longest uncommon string
+            if(j==n){
+                return strs[i].length();
             }
         }
-
-        return -1;
+        return ans_max;
     }
 
-    private static boolean isSubsequence(String a, String b) {
-        int i = 0, j = 0;
-        while (i < a.length() && j < b.length()) {
-            if (a.charAt(i) == b.charAt(j)) {
-                i++;
+    public boolean issub(String s1, String s2){
+        int l = 0 , r = 0;
+        while(l<s1.length() && r<s2.length()){
+            if(s1.charAt(l)==s2.charAt(r)){
+                l++;r++;
+            }else{
+                l++;
             }
-            j++;
         }
-        return i == a.length();
+        return r == s2.length();
     }
 }
