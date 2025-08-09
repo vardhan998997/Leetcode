@@ -1,31 +1,36 @@
 class Solution {
-    int count = 0;
-    int ans = 0;
     public int maxAreaOfIsland(int[][] grid) {
-        int n = grid.length, m = grid[0].length;
+        int n = grid.length ,m = grid[0].length;
+        int ans = 0;
+        
+        int[][] dir = {{-1,0},{1,0},{0,-1},{0,1}};
+
         for(int i = 0;i<n;i++){
             for(int j = 0;j<m;j++){
                 if(grid[i][j]==1){
-                    count = 0;
-                    dfs(grid, n, m, i, j);
+                    Queue<int[]> queue = new LinkedList<>();
+                    queue.offer(new int[]{i,j});
+                    grid[i][j] = 0;
+
+                    int count = 0;
+                    while(!queue.isEmpty()){
+                        int[] cell = queue.poll();
+                        count++;
+
+                        for(int[] d : dir){
+                            int newRow = d[0] + cell[0];
+                            int newCol = d[1] + cell[1];
+
+                            if(newRow>=0 && newCol>=0 && newRow<n && newCol<m && grid[newRow][newCol]==1){
+                                queue.offer(new int[]{newRow,newCol});
+                                grid[newRow][newCol] = 0;
+                            }
+                        }
+                    }
                     ans = Math.max(ans, count);
                 }
             }
         }
         return ans;
-    }
-
-    public void dfs(int[][] grid, int n, int m, int row, int col){
-        if(row<0 || col<0 || row>=n || col>=m || grid[row][col]==0){
-            return;
-        }
-
-        grid[row][col] = 0;
-        count++;
-
-        dfs(grid, n, m, row-1, col);
-        dfs(grid, n, m, row+1, col);
-        dfs(grid, n, m, row, col+1);
-        dfs(grid, n, m, row, col-1);
     }
 }
