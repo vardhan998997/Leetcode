@@ -18,9 +18,7 @@ class Solution {
 
         for(int i = 0;i<n;i++){
             for(int j = 0;j<m;j++){
-                if(isWater[i][j]==0){
-                    ans[i][j] = 1;
-                }else{
+                if(isWater[i][j]==1){
                     queue.offer(new Node(i,j,0));
                     visited[i][j] = true;
                 }
