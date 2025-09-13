@@ -7,8 +7,7 @@ class Solution {
             }
         }
 
-        if(countVowels==0) return false;
-        return true;
+        return countVowels>0;
     }
     
     public boolean isVowel(char ch){
