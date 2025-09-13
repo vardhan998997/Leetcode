@@ -8,13 +8,12 @@ class Solution {
         }
         Collections.sort(sortVowels);
 
-        StringBuilder sb = new StringBuilder(s);
-        int k = 0; String ans = ""; int i = 0;
+        int k = 0, i = 0; String ans = "";
         for(char ch : s.toCharArray()){
             if(isVowel(ch)){
                 ans += sortVowels.get(k++);
             }else{
-                ans += sb.charAt(i);
+                ans += s.charAt(i);
             }
             i++;
         }
