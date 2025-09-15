@@ -8,7 +8,7 @@ class Solution {
             for(char ch : brokenLetters.toCharArray()){
                 if(s.contains(ch+"")){
                     isflag = false;
-                    continue;
+                    break;
                 }
             }
             if(isflag){
