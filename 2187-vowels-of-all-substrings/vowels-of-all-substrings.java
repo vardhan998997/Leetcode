@@ -1,13 +1,15 @@
 class Solution {
     public long countVowels(String word) {
-        long ans = 0;
-        int len = word.length();
-        for(int i = 0;i<len;i++){
+        int n = word.length();
+        long tot = 0, prev = 0;
+
+        for(int i = 0;i<word.length();i++){
             char ch = word.charAt(i);
             if(ch=='a' || ch=='e' || ch=='i' || ch=='o' || ch=='u'){
-                ans += len - i + i * (long)(len - i);
+                prev += (long)i + 1;
             }
+            tot += prev;
         }
-        return ans;
+        return tot;
     }
 }
