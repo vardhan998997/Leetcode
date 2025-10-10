@@ -1,30 +1,38 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
         ArrayList<Integer> ans = new ArrayList<>();
-        int n = s.length(), len = p.length();
-        for(int i = 0;i<s.length();i++){
-            String str = s.substring(i, Math.min(i+len, n));
-            if(isanagram(str, p)){
-                ans.add(i);
+        HashMap<Character,Integer> sMpp = new HashMap<>();
+        HashMap<Character,Integer> pMpp = new HashMap<>();
+        if(s.length()<p.length()) return ans;
+
+        for(char ch : p.toCharArray()){
+            pMpp.put(ch, pMpp.getOrDefault(ch, 0)+1);
+        }
+
+        for(int i = 0;i<p.length();i++){
+            char ch = s.charAt(i);
+            sMpp.put(ch, sMpp.getOrDefault(ch,0)+1);
+        }
+
+        if(sMpp.equals(pMpp)){
+            ans.add(0);
+        }
+
+        for(int i = p.length();i<s.length();i++){
+            char endChar = s.charAt(i);
+
+            sMpp.put(endChar, sMpp.getOrDefault(endChar, 0)+1);
+            char stChar = s.charAt(i-p.length());
+            if(sMpp.get(stChar)==1){
+                sMpp.remove(stChar);
+            }else{
+                sMpp.put(stChar, sMpp.getOrDefault(stChar, 0)-1);
+            }
+
+            if(sMpp.equals(pMpp)){
+                ans.add(i-p.length()+1);
             }
         }
         return ans;
-    }
-
-    public boolean isanagram(String a, String b){
-        int freq[] = new int[26];
-        for(char ch : a.toCharArray()){
-            freq[ch-'a']++;
-        }
-        for(char ch : b.toCharArray()){
-            freq[ch-'a']--;
-        }
-
-        for(int val : freq){
-            if(val!=0){
-                return false;
-            }
-        }
-        return true;
     }
 }
