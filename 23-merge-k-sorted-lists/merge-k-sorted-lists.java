@@ -42,11 +42,11 @@ class Solution {
             }
         }
         
-        ans.next = temp1;
-        while(ans.next!=null){
-            ans = ans.next;
+        if(temp1!=null){
+            ans.next = temp1;
+        }else{
+            ans.next = temp2;
         }
-        ans.next = temp2;
 
         return dummy.next;
     }
