@@ -7,6 +7,10 @@ class Solution {
         }
 
         for(int i = 1;i<words.length;i++){
+            if(words[i-1].equals(words[i])){
+                ans.remove(words[i]);
+                continue;
+            }
             if(isAnagram(words[i-1], words[i])){
                 ans.remove(words[i]);
             }
