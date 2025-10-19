@@ -2,12 +2,13 @@ class Solution {
     String ans = null;
 
     public String findLexSmallestString(String s, int a, int b) {
-        ans = s; 
-        helper(s, a, b, new java.util.HashSet<>());
+        ans = s;
+        Set<String> visited = new HashSet<>();
+        helper(s, a, b, visited);
         return ans;
     }
 
-    public void helper(String str, int a, int b, java.util.Set<String> visited) {
+    public void helper(String str, int a, int b, Set<String> visited) {
         if (visited.contains(str)) return;
         visited.add(str);
 
