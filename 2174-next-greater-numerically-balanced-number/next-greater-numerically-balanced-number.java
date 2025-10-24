@@ -6,7 +6,8 @@ class Solution {
 
     // Static block runs only once when class loads
     static {
-        generateAllBeautifulNumbers();
+        // generateAllBeautifulNumbers();
+        generateBeautifulNumbers("", new int[10]);
         Collections.sort(beautifulNumbers);
     }
 
@@ -17,10 +18,10 @@ class Solution {
         return -1;
     }
 
-    // Generate all beautiful numbers only once
-    private static void generateAllBeautifulNumbers() {
-        generateBeautifulNumbers("", new int[10]);
-    }
+    // // Generate all beautiful numbers only once
+    // private static void generateAllBeautifulNumbers() {
+        
+    // }
 
     private static void generateBeautifulNumbers(String current, int[] count) {
         if (!current.isEmpty()) {
