@@ -6,23 +6,13 @@ class Solution {
             Arrays.sort(ch);
             String sorted = new String(ch);
 
-            if(mpp.containsKey(sorted)){
-                mpp.get(sorted).add(s);
-            }else{
+            if(!mpp.containsKey(sorted)){
                 mpp.put(sorted, new ArrayList<>());
-                mpp.get(sorted).add(s);
             }
+            mpp.get(sorted).add(s);
         }
 
-        List<List<String>> ans = new ArrayList<>();
-        for(List<String> key : mpp.values()){
-            ArrayList<String> temp = new ArrayList<>();
-            for(String s : key){
-                temp.add(s);
-            }
-            ans.add(new ArrayList<>(temp));
-        }
-        return ans;
+        return new ArrayList<>(mpp.values());
     }
 }
 
