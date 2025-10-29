@@ -1,10 +1,11 @@
 class Solution {
     public int smallestNumber(int n) {
-        for(int i = n;i>=0;i++){
-            String binary = Integer.toBinaryString(i);
-            int bitCount = Integer.bitCount(i);
-            if(binary.length()-bitCount == 0) return i;
+        for(int i = 0;i<n;i++){
+            int power = (int)Math.pow(2, i);
+            if(power>n){
+                return power-1;
+            }
         }
-        return -1;
+        return 1;
     }
 }
