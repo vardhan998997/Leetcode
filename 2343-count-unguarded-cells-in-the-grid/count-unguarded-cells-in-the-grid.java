@@ -1,39 +1,56 @@
 class Solution {
     public int countUnguarded(int m, int n, int[][] guards, int[][] walls) {
-        char grid[][] = new char[m][n];
+        boolean seen = false;
+        int[][] grid = new int[m][n];
+        for(int[] wall : walls) grid[wall[0]][wall[1]] = 1;
+        for(int[] guard : guards) grid[guard[0]][guard[1]] = 2;
 
-        Queue<int[]> queue = new LinkedList<>();
-        for(int[] guard : guards){
-            grid[guard[0]][guard[1]] = 'G';
-            queue.offer(new int[]{guard[0], guard[1]});
-        }
-        for(int[] wall : walls){
-            grid[wall[0]][wall[1]] = 'W';
-        }
-
-        int[][] dir = {{-1,0},{1,0},{0,-1},{0,1}};
-        
-        while(!queue.isEmpty()){
-            int[] cell = queue.poll();
-
-            for(int[] di : dir){
-                int newRow = cell[0] + di[0];
-                int newCol = cell[1] + di[1];
-
-                while(newRow>=0 && newCol>=0 && newRow<m && newCol<n && grid[newRow][newCol]!='G' && grid[newRow][newCol]!='W'){
-                    grid[newRow][newCol] = 'g';
-                    newRow += di[0];
-                    newCol += di[1];
-                }
+        //// left to right
+        for(int i = 0;i<m;i++){
+            seen = false;
+            for(int j = 0;j<n;j++){
+                if(grid[i][j]==1) seen = false;
+                else if(grid[i][j] == 2) seen = true;
+                else if(seen) grid[i][j] = 3;
             }
         }
+
+        //// right to left
+        for(int i = 0;i<m;i++){
+            seen = false;
+            for(int j = n-1;j>=0;j--){
+                if(grid[i][j]==1) seen = false;
+                else if(grid[i][j] == 2) seen = true;
+                else if(seen) grid[i][j] = 3;
+            }
+        }
+
+        ///// top to bottom
+        for(int i = 0;i<n;i++){
+            seen = false;
+            for(int j = 0;j<m;j++){
+                if(grid[j][i]==1) seen = false;
+                else if(grid[j][i] == 2) seen = true;
+                else if(seen) grid[j][i] = 3;
+            }
+        }
+        
+
+        ///// bottom to top
+        for(int i = 0;i<n;i++){
+            seen = false;
+            for(int j = m-1;j>=0;j--){
+                if(grid[j][i]==1) seen = false;
+                else if(grid[j][i] == 2) seen = true;
+                else if(seen) grid[j][i] = 3;
+            }
+        }
+
 
         int unguardians = 0;
         for(int i = 0;i<m;i++){
             for(int j = 0;j<n;j++){
-                if(grid[i][j]=='\u0000'){
-                    unguardians++;
-                }
+                if(grid[i][j] == 0) unguardians++;
             }
         }
         return unguardians;
