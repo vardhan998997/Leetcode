@@ -1,11 +1,7 @@
 class Solution {
     public int countUnguarded(int m, int n, int[][] guards, int[][] walls) {
         char grid[][] = new char[m][n];
-        for(int i = 0;i<m;i++){
-            for(int j = 0;j<n;j++){
-                grid[i][j] = '.';
-            }
-        }
+
         Queue<int[]> queue = new LinkedList<>();
         for(int[] guard : guards){
             grid[guard[0]][guard[1]] = 'G';
@@ -35,7 +31,7 @@ class Solution {
         int unguardians = 0;
         for(int i = 0;i<m;i++){
             for(int j = 0;j<n;j++){
-                if(grid[i][j]=='.'){
+                if(grid[i][j]=='\u0000'){
                     unguardians++;
                 }
             }
