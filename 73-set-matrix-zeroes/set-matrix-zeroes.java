@@ -1,33 +1,38 @@
 class Solution {
     public void setZeroes(int[][] matrix) {
         int n = matrix.length, m = matrix[0].length;
-        boolean[][] zeros = new boolean[n][m];
+        int col = 1;
 
         for(int i = 0;i<n;i++){
-            for(int j = 0;j<m;j++){
+            if(matrix[i][0] == 0){
+                col = 0;
+            }
+
+            for(int j = 1;j<m;j++){
                 if(matrix[i][j]==0){
-                    dfs(i, j, n, m, -1, 0, zeros, matrix);
-                    dfs(i, j, n, m, 1, 0, zeros, matrix);
-                    dfs(i, j, n, m, 0, -1, zeros, matrix);
-                    dfs(i, j, n, m, 0, 1, zeros, matrix);
+                    matrix[i][0] = 0; matrix[0][j] = 0;
                 }
             }
         }
 
-        for(int i = 0;i<n;i++){
-            for(int j = 0;j<m;j++){
-                if(zeros[i][j]){
+        for(int i = 1;i<n;i++){
+            for(int j = 1;j<m;j++){
+                if(matrix[i][0]==0 || matrix[0][j]==0){
                     matrix[i][j] = 0;
                 }
             }
         }
-    }
 
-    public void dfs(int row, int col, int n, int m, int i, int j, boolean[][] zeros, int[][] matrix){
-        if(row<0 || col<0 || row>=n || col>=m){
-            return;
+        if(matrix[0][0]==0){
+            for(int j = 1;j<m;j++){
+                matrix[0][j] = 0;
+            }
         }
-        zeros[row][col] = true;
-        dfs(row+i, col+j, n, m, i, j, zeros, matrix);
+
+        if(col==0){
+            for(int i = 0;i<n;i++){
+                matrix[i][0] = 0;
+            }
+        }
     }
 }
