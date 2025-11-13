@@ -1,9 +1,6 @@
 class Solution {
     public int maxOperations(String s) {
-        int CountOnes = 0;
-        for(char ch : s.toCharArray()){
-            CountOnes += (ch=='1') ? 1 : 0;
-        }
+        int CountOnes = s.replace("0","").length();
 
         int n = s.length(), ans = 0;
         for(int i = n-1;i>=0;i--){
